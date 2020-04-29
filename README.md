@@ -1,5 +1,11 @@
 # Shared trashbin POC
 
+## clone impersonate app
+
+```
+git submodule update --init owncloud_apps/impersonate
+```
+
 ## Build, start and initialize
 
 Build
