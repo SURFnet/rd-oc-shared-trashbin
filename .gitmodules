@@ -1,0 +1,3 @@
+[submodule "owncloud_apps/impersonate"]
+	path = owncloud_apps/impersonate
+	url = git@git.ia.surfsara.nl:stefanwo/owncloud.impersonate.git

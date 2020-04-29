@@ -1,0 +1,6 @@
+43a44
+> 		$user =	\OCA\group_lookup\AppInfo\getFunctionalAccount($user);
+59c60
+< 		$dirContent = $storage->getCache()->getFolderContents($mount->getInternalPath($view->getAbsolutePath($dir)));
+---
+> 		$dirContent = $storage->getCache()->getFolderContentsById(\OCA\group_lookup\AppInfo\getFileTrashbinFileId($internalPath, $user));

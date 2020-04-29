@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<info>
+  <id>group_lookup</id>
+  <name>Lookup functional account of group</name>
+  <description></description>
+  <licence>AGPL</licence>
+  <author>Stefan Wolfsheimer</author>
+  <version>0.0.1</version>
+  <namespace>group_lookup</namespace>
+  <category>integration</category>
+  <types>
+    <filesystem/>
+  </types>
+  <dependencies>
+    <owncloud min-version="9" max-version="10"/>
+  </dependencies>
+</info>
