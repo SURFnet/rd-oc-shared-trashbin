@@ -64,7 +64,7 @@ do
     create_user $i bioinformatics "0 B"
 done
 
-for i in dawne noella
+for i in dawne noella jennifer
 do
     create_user $i bioinformatics
 done
