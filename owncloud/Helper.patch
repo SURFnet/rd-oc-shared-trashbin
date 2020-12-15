@@ -8,7 +8,7 @@
 +       // SURF patch - Trashbin Helper for functional accounts
 +       //$dirContent = $storage->getCache()->getFolderContents($mount->getInternalPath($view->getAbsolutePath($dir)));
 +       $user = \OCA\group_lookup\AppInfo\getFunctionalAccount($user);
-+       $dirContent = $storage->getCache()->getFolderContentsById(\OCA\group_lookup\AppInfo\getFileTrashbinFileId($internalPath, $user));
++       $dirContent = $storage->getCache()->getFolderContentsById(\OCA\group_lookup\AppInfo\getFileTrashbinFileId($absoluteDir, $user));
         foreach ($dirContent as $entry) {
             // construct base fileinfo entries
             $entryName = $entry->getName();
