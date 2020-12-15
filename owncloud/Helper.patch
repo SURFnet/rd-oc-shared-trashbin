@@ -1,11 +1,12 @@
 --- Helper.php  2020-12-15 12:36:09.417156186 +0100
-+++ Helper.php.new  2020-12-15 12:37:12.603740106 +0100
++++ Helper.php.new  2020-12-15 12:39:11.318839154 +0100
 @@ -57,7 +57,10 @@
         $internalPath = $mount->getInternalPath($absoluteDir);
 
         $originalLocationsCache = null;
+-       $dirContent = $storage->getCache()->getFolderContents($mount->getInternalPath($view->getAbsolutePath($dir)));
 +       // SURF patch - Trashbin Helper for functional accounts
-        $dirContent = $storage->getCache()->getFolderContents($mount->getInternalPath($view->getAbsolutePath($dir)));
++       //$dirContent = $storage->getCache()->getFolderContents($mount->getInternalPath($view->getAbsolutePath($dir)));
 +       $user = \OCA\group_lookup\AppInfo\getFunctionalAccount($user);
 +       $dirContent = $storage->getCache()->getFolderContentsById(\OCA\group_lookup\AppInfo\getFileTrashbinFileId($internalPath, $user));
         foreach ($dirContent as $entry) {
