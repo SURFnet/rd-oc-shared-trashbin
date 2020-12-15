@@ -34,7 +34,7 @@ share_folder() {
     ( echo "INSERT INTO oc_share "
       echo "SET share_type=1, share_with='$group', uid_owner='$f_user', uid_initiator='$f_user',"
       echo "item_type='folder', item_source=$fileid, file_source=$fileid,"
-      echo "file_target='/shared', permissions=31" ) | \
+      echo "file_target='/${f_user}_shared', permissions=31" ) | \
         $mysql_cmd
 }
 
@@ -64,13 +64,13 @@ do
     create_user $i bioinformatics "0 B"
 done
 
-for i in dawne noella jennifer
+for i in dawne noella
 do
     create_user $i bioinformatics
 done
 
 # astrophysics
-for i in jolynn deanne
+for i in jennifer jolynn deanne
 do
     create_user $i astrophysics "0 B"
 done

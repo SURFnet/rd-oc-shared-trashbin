@@ -1,4 +1,4 @@
-FROM owncloud/server:10.2.1
+FROM owncloud/server:10.5
 
 RUN apt-get update &&\
     apt-get install -y \
@@ -9,14 +9,15 @@ RUN apt-get update &&\
     less \
     patch \
     git \
-    emacs \
-    php7.2-xdebug \
-    phpunit
-
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
-    apt-get install -y \
-            nodejs \
-            make
+    emacs
+# \
+#    php7.2-xdebug \
+#    phpunit
+#
+#RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
+#    apt-get install -y \
+#            nodejs \
+#            make
 
 ADD init_impersonate.sh /app/init_impersonate.sh
 ADD init.sh /app/init.sh
