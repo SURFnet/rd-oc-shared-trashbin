@@ -17,12 +17,10 @@ create_user() {
     fi
 }
 
-share_folder() {
-    f_user=$1;
+share_folder_group() {
+    f_user=$1
     f_pass=$2
     group=$3
-    # create shared folder
-    curl -u $f_user:$f_pass -X MKCOL "http://127.0.0.1:8080/remote.php/dav/files/$f_user/shared"
 
     # get file id of shared folder
     fileid=$( ( echo "SELECT oc_filecache.fileid FROM oc_storages, oc_filecache "
@@ -33,6 +31,25 @@ share_folder() {
     # share file
     ( echo "INSERT INTO oc_share "
       echo "SET share_type=1, share_with='$group', uid_owner='$f_user', uid_initiator='$f_user',"
+      echo "item_type='folder', item_source=$fileid, file_source=$fileid,"
+      echo "file_target='/${group}_shared', permissions=31" ) | \
+        $mysql_cmd
+}
+
+share_folder_user() {
+    f_user=$1
+    f_pass=$2
+    s_user=$3
+
+    # get file id of shared folder
+    fileid=$( ( echo "SELECT oc_filecache.fileid FROM oc_storages, oc_filecache "
+                echo "WHERE id ='home::$f_user' AND "
+                echo "oc_filecache.storage=oc_storages.numeric_id AND "
+                echo "oc_filecache.path = 'files/shared'" ) | \
+                  $mysql_cmd --skip-column-names )
+    # share file
+    ( echo "INSERT INTO oc_share "
+      echo "SET share_type=0, share_with='$s_user', uid_owner='$f_user', uid_initiator='$f_user',"
       echo "item_type='folder', item_source=$fileid, file_source=$fileid,"
       echo "file_target='/${f_user}_shared', permissions=31" ) | \
         $mysql_cmd
@@ -49,7 +66,11 @@ do
     occ group:add $group
     OC_PASS=$f_pass occ user:add --password-from-env $f_user --group $group
     echo "INSERT INTO oc_group_admin SET gid='$group', uid='$f_user';" | $mysql_cmd
-    share_folder $f_user $f_pass $group
+
+    # create shared folder
+    curl -u $f_user:$f_pass -X MKCOL "http://127.0.0.1:8080/remote.php/dav/files/$f_user/shared"
+
+    #share_folder_group $f_user $f_pass $group
 done
 
 ####################################
@@ -62,31 +83,28 @@ done
 for i in jennifer katharine
 do
     create_user $i bioinformatics "0 B"
-done
 
-for i in dawne noella
-do
-    create_user $i bioinformatics
+    f_user=f_bioinformatics
+    f_pass=$f_user
+    share_folder_user $f_user $f_pass $i
 done
 
 # astrophysics
-for i in jennifer jolynn deanne
+for i in jolynn deanne
 do
     create_user $i astrophysics "0 B"
-done
 
-for i  in willia craig
-do
-    create_user $i astrophysics
+    f_user=f_$bioinformatics
+    f_pass=$f_user
+    share_folder_user $f_user $f_pass $i
 done
 
 # biochemistry
-for i in lucretia sherrie
+for i in jennifer lucretia sherrie
 do
     create_user $i biochemistry "0 B"
-done
 
-for i in babara stevie
-do
-    create_user $i biochemistry
+    f_user=f_biochemistry
+    f_pass=$f_user
+    share_folder_user $f_user $f_pass $i
 done
