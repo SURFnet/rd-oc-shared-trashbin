@@ -94,7 +94,7 @@ for i in jolynn deanne
 do
     create_user $i astrophysics "0 B"
 
-    f_user=f_$bioinformatics
+    f_user=f_astrophysics
     f_pass=$f_user
     share_folder_user $f_user $f_pass $i
 done

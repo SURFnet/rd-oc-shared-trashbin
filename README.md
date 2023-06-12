@@ -23,7 +23,7 @@ docker-compose up
 Initialize
 
 ```
-docker exec shared_trash_owncloud_1 /app/init.sh
+docker exec shared_trash-owncloud-1 /app/init.sh
 ```
 
 The initialization script creates 3 groups with different users (password = username)
